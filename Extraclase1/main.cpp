@@ -6,7 +6,7 @@
 
 int minimalD(int dis[], bool ArDmSet[])
 {
-    int min = I_MAX, m_index;
+    int min = INT_MAX, m_index;
     for (int v = 0; v < V; v++)
         if (ArDmSet[v] == false && dis[v] <= min)
             min = dis[v], m_index = v;
@@ -14,24 +14,24 @@ int minimalD(int dis[], bool ArDmSet[])
 }
 int impSol(int dis[])
 {
-    printf("vertice \t\ Distancia desde el punto fuente\n")
-    for (int = 0; i < V; i++)
+    printf("vertice \t\ Distancia desde el punto fuente\n");
+    for (int i = 0; i < V; i++)
         printf("%d \t\t %d\n", i, dis[i]);
 }
 void dijkstra(int graph[V][V], int fuent)
 {
 int dis[V];
-bool ArDmSet[];
+bool ArDmSet[V];
 for (int i = 0; i < V; i++)
-        dis[i] = I_MAX, ArDmSet[i] = false;
-dist[fuent] = 0;
+        dis[i] = INT_MAX, ArDmSet[i] = false;
+dis[fuent] = 0;
 for (int count = 0; count < V - 1; count++){
     int u = minimalD(dis, ArDmSet);
-    ArDmSet[u] = true
+    ArDmSet[u] = true;
     for (int v = 0; v < V; v++)
-        if (!ArDmSet[v] && grafo[]u][v] && dis[u] != I_MAX
-            && dis[u] + grafo[u][v] < dis[v])
-            dis[v] = dis[u] + grafo[u][v];
+        if (!ArDmSet[v] && graph[u][v] && dis[u] != INT_MAX
+            && dis[u] + graph[u][v] < dis[v])
+            dis[v] = dis[u] + graph[u][v];
     }
     impSol(dis);
 }
@@ -47,5 +47,5 @@ int main()
                         { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
                         { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
     dijkstra(grafo,0);
-    return 0
+    return 0;
 }
