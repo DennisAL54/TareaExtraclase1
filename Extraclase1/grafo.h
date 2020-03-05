@@ -25,6 +25,9 @@ class grafo
         void Inicialize();
         bool Empty();
         int Size();
+        Vertice *GetV(int data);
+        void InsertA(Vertice *inicio, Vertice *fin, int peso);
+        void InsertV(int data);
 
 };
 
