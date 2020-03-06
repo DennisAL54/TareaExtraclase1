@@ -1,10 +1,10 @@
-#include "grafo.h";
-void grafo::Inicialize()
+#include "grafo.h";//Importamos la clase grafo
+void grafo::Inicialize()//Inicializamos el grafo
 {
-    h = NULL;
+    h = NULL;//Inicializamos en nulo
 }
 
-bool grafo::Empty()
+bool grafo::Empty()//Boolean que indica si el grafo esta vacio
 {
     if(h==NULL)
     {
@@ -16,7 +16,7 @@ bool grafo::Empty()
     }
     
 }
-int grafo::Size()
+int grafo::Size()// Tamano del Grafo
 {
     int counter = 0;
     Vertice *aux;
@@ -28,7 +28,7 @@ int grafo::Size()
     }
     return counter;
 }
-Vertice *grafo::GetV(int data)
+Vertice *grafo::GetV(int data)//Funcion para obtener Vertices
 {
     Vertice *aux;
     aux = h;
@@ -42,7 +42,7 @@ Vertice *grafo::GetV(int data)
     }
     return NULL;
 }
-void grafo::InsertV(int data)
+void grafo::InsertV(int data)//Funcion para insertar Vertices
 {
     Vertice *nuevo = new Vertice;
     nuevo -> data = data;
@@ -63,7 +63,7 @@ void grafo::InsertV(int data)
         aux -> next = nuevo;
     }
 }
-void grafo::InsertA(Vertice *inicio, Vertice *fin, int peso)
+void grafo::InsertA(Vertice *inicio, Vertice *fin, int peso)//Funcion para insertar Aristas
 {
     Arista *nueva = new Arista();
     nueva -> peso = peso;
@@ -85,5 +85,24 @@ void grafo::InsertA(Vertice *inicio, Vertice *fin, int peso)
         }
         aux -> next = nueva;
         aux -> ady = fin;
+    }
+}
+void grafo::ListaAdy()
+{
+    Vertice *VAux;
+    Arista *ArAux;
+    VAux = h;
+    
+    while(VAux != NULL)
+    {
+        cout<<VAux -> data<<"->";
+        ArAux = VAux->ady;
+        while (ArAux != NULL)
+        {
+            cout<<ArAux->ady->data<<"->";
+            ArAux = ArAux->next;
+        }
+        VAux = VAux->next;
+        cout<<endl;
     }
 }
