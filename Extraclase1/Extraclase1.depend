@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1583549707 source:/home/alejandro/Escritorio/Tarea Extraclase 1/TareaExtraclase1/TareaExtraclase1/Extraclase1/main.cpp
+	<iostream>
+	<limits.h>
+	<stdio.h>
+	<sys/types.h>
+	<unistd.h>
+	<sys/socket.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<string.h>
+	<string>
+	"grafo.h"
+
+1583478231 /home/alejandro/Escritorio/Tarea Extraclase 1/TareaExtraclase1/TareaExtraclase1/Extraclase1/grafo.h
+	<iostream>
+
