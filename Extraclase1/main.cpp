@@ -73,7 +73,7 @@ int main()
             cout << "El cliente se desconecto" << endl;//Notificamos la desconexion del cliente
             break;
         }
-        cout << "Recibido:" string(buf,0,bytesR) << endl;//Mostramos el mensaje recibido del cliente
+        cout << "Recibido:" << string(buf,0,bytesR) << endl;//Mostramos el mensaje recibido del cliente
         send(clientS, buf, bytesR + 1, 0);
 
         close(clientS);//Cerramos el socket
