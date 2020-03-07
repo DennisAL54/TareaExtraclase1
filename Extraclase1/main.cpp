@@ -14,22 +14,73 @@ using namespace std;
 
 int main()
 {
-    /*int Listen = socket(AF_INET, SOCK_STREAM, 0);//Creamos un socket (server)
-    if(Listen == -1)
+    int listening = socket(AF_INET, SOCK_STREAM, 0);//Creamos un socket (server)
+    if(listening == -1)
     {
         cerr << "No se pudo crear";//Prevemos el caso que no se pueda crear
         return -1;
     }
-    sockaddr_in pista;//Asignamos un puerto al socket
-    pista.sin_family = AF_INET;
-    pista.sin_port = htons(54000);
-    inet_pton(AF_INET, "0.0.0.0", &pista.sin_addr);
-    if(bind(Listen, AF_INET, &pista) == -1)
+    sockaddr_in hint;//Asignamos un puerto al socket
+    hint.sin_family = AF_INET;
+    hint.sin_port = htons(54000);
+    inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr);
+    if(bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)//Vinculamos
     {
         cerr << "no se pudo vincular";
         return -2;
-    }*/
+    }
+    if(listen(listening, SOMAXCONN) == -1)//Hacemos que el socket escuche
+    {
+        cerr<<"El socket no puede escuchar";
+        return -3;
+    }
+    sockaddr_in client;// Esto se usa para aceptar una llamada
+    socklen_t Tclient = sizeof(client);
+    char host[NI_MAXHOST];
+    char svc[NI_MAXSERV];
+    int clientS = accept(listening, (sockaddr*)&client, &Tclient);
+    if(clientS == -1)
+    {
+        cerr << "Problema con conexion al cliente";
+        return -4;
+    }
+    close(listening);//Cerramos el socket
+    memset(host,0,NI_MAXHOST);//limpiamos
+    memset(svc,0,NI_MAXSERV);
+    int resultado = getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, svc, NI_MAXSERV,0);
 
+    if(resultado)//imprimimos resultados
+    {
+        cout << host << "conectado a" << svc << endl;
+    }
+    else
+    {
+        inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
+        cout << host << "conectado a" << ntohs(client.sin_port) << endl;
+    }
+    char buf[4096];//buscamos que el server se mantenga activo mientras reciba mensajes
+    while(true)
+    {
+        memset(buf,0,4096);
+        int bytesR = recv(clientS, buf, 4096,0);
+        if(bytesR == -1);
+        {
+            cerr << "Hubo un error en la conexion" << endl;//Mostramos errores en la conexion
+            break;
+        }
+        if(bytesR == 0)
+        {
+            cout << "El cliente se desconecto" << endl;//Notificamos la desconexion del cliente
+            break;
+        }
+        cout << "Recibido:" string(buf,0,bytesR) << endl;//Mostramos el mensaje recibido del cliente
+        send(clientS, buf, bytesR + 1, 0);
+
+        close(clientS);//Cerramos el socket
+        return 0;
+
+    }
+    
 
     grafo G;//Creamos un grafo
     G.Inicialize();//Lo inicializamos
